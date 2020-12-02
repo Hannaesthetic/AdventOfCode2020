@@ -14,14 +14,28 @@ namespace AdventOfCode.DayTwo
       {
         passwordData.Add(new PasswordData(item));
       }
+      Debug.Log($"{passwordData.Count} items processed");
     }
 
-    public void Evaluate()
+    public void EvaluateStepOne()
     {
       int correctCount = 0;
       foreach (PasswordData item in passwordData)
       {
-        if (item.IsValid(out int min, out int max))
+        if (item.IsValidStepOne(out int min, out int max))
+        {
+          correctCount++;
+        }
+      }
+      Debug.Log(correctCount);
+    }
+
+    public void EvaluateStepTwo()
+    {
+      int correctCount = 0;
+      foreach (PasswordData item in passwordData)
+      {
+        if (item.IsValidStepTwo(out bool firstCorrect, out bool secondCorrect))
         {
           correctCount++;
         }
