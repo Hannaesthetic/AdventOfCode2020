@@ -4,8 +4,11 @@ using UnityEngine;
 namespace AdventOfCode.DayTwo
 {
   public class SolutionDayTwo : MonoBehaviour {
+    
+    public VisualiserDayTwo Visualiser;
 
     private List<PasswordData> passwordData;
+    private List<Vector2Int> Ranges;
 
     public void ProcessStrings()
     {
@@ -20,12 +23,14 @@ namespace AdventOfCode.DayTwo
     public void EvaluateStepOne()
     {
       int correctCount = 0;
+      Ranges = new List<Vector2Int>();
       foreach (PasswordData item in passwordData)
       {
         if (item.IsValidStepOne(out int min, out int max))
         {
           correctCount++;
         }
+        Ranges.Add(new Vector2Int(min, max));
       }
       Debug.Log(correctCount);
     }
@@ -41,6 +46,14 @@ namespace AdventOfCode.DayTwo
         }
       }
       Debug.Log(correctCount);
+    }
+
+    public void VisualiseBoxes()
+    {
+      foreach(Vector2Int data in Ranges)
+      {
+        Visualiser.AddBox(data.x, data.y);
+      }
     }
     
     readonly static string[] data = { "6-7 z: dqzzzjbzz",
