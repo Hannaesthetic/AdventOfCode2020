@@ -29,5 +29,10 @@ namespace AdventOfCode.Util {
       TextBox.SetText(text);
       velocity = BumpVelocity;
     }
+
+    public void SetColor(Color color)
+    {
+      TextBox.color = color;
+    }
   }
 }
