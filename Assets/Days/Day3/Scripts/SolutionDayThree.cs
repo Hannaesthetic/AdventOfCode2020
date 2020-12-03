@@ -6,12 +6,27 @@ namespace AdventOfCode.DayThree
 {
   public class SolutionDayThree : MonoBehaviour
   {
-    public const int MovementX = 3;
-    public const int MovementY = 1;
+    public Vector2Int[] Slopes;
     public ToboganMap Map;
+    public long TreeProduct;
+    public int[] TreeCounts;
 
     [ContextMenu("Solve Step One")]
-    public void SolveStepOne()
+    public void Solve()
+    {
+      TreeCounts = new int[Slopes.Length];
+      TreeProduct = 1;
+
+      for (int i = 0; i < Slopes.Length; i++)
+      {
+        TreeCounts[i] = CheckSlope(Slopes[i]);
+        TreeProduct *= TreeCounts[i];
+      }
+
+      Debug.Log($"All slopes checked, result: {TreeProduct}");
+    }
+
+    public int CheckSlope(Vector2Int slope)
     {
       int trees = 0;
       Vector2Int position = Vector2Int.zero;
@@ -21,10 +36,11 @@ namespace AdventOfCode.DayThree
         {
           trees++;
         }
-        position.x = (position.x + MovementX) % Map.Size.x;
-        position.y += MovementY;
+        position.x = (position.x + slope.x) % Map.Size.x;
+        position.y += slope.y;
       } while (position.y < Map.Size.y);
-      Debug.Log($"Solution complete, hit {trees} trees");
+      Debug.Log($"Checked {slope.x}/{slope.y}, hit {trees} trees");
+      return trees;
     }
   }
 }
