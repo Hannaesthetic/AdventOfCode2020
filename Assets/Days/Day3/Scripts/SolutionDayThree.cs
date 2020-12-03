@@ -11,7 +11,7 @@ namespace AdventOfCode.DayThree
     public long TreeProduct;
     public int[] TreeCounts;
 
-    [ContextMenu("Solve Step One")]
+    [ContextMenu("Solve")]
     public void Solve()
     {
       TreeCounts = new int[Slopes.Length];
