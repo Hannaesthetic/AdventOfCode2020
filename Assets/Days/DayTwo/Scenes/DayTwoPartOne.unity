@@ -1136,7 +1136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoxPrefab: {fileID: 6993355883139322771, guid: 7e43cafed3eab974792785ea7b0856b8,
     type: 3}
-  DiscardStart: 2
+  DiscardStart: 3
   DiscardHeight: 10
   DiscardCurve:
     serializedVersion: 2
@@ -1162,11 +1162,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  RailSpeed: 1
+  RailSpeed: 2
   LowText: {fileID: 1152418610}
   HighText: {fileID: 1297068870}
   CorrectText: {fileID: 263734461}
-  RailPosition: -5
+  RailPosition: -12.5
 --- !u!1 &929196615
 GameObject:
   m_ObjectHideFlags: 0
