@@ -6,22 +6,62 @@ namespace AdventOfCode.DayFour
 {
   public class SolutionDayFour : MonoBehaviour
   {
+    public static float SimulationSpeed;
+    
     public PassportField[] Fields;
     [TextAreaAttribute(3, 10)] public string UnparsedData;
+    public VisualiserDayFour Visualiser;
+    public float SimSpeed = 1f;
+    public float CheckInterval = 5f;
 
     private string[] splitUnparsedData;
     private List<Passport> passports;
     private int validPassports;
 
     private int nextIndex;
+    private float timeToNextCheck;
+    private bool done;
 
 
-    [ContextMenu("CheckAll")]
-    private void Solve()
+    private void Start()
+    {
+      Setup();
+    }
+
+    private void Update()
+    {
+      if (done)
+      {
+        return;
+      }
+      SimulationSpeed = SimSpeed;
+      timeToNextCheck += SimSpeed * Time.deltaTime;
+      if (nextIndex >= splitUnparsedData.Length) {
+        done = true;
+        Visualiser.SetVisualProgress(1f);
+      }
+      else
+      {
+        while (timeToNextCheck >= CheckInterval)
+        {
+          timeToNextCheck -= CheckInterval;
+          CheckNext();
+        }
+        Visualiser.SetVisualProgress(timeToNextCheck / CheckInterval);
+      }
+    }
+
+    [ContextMenu("Setup")]
+    private void Setup()
     {
       SplitData();
       SetupCheck();
-      CheckAllPassports();
+    }
+
+    [ContextMenu("Check Next")]
+    private void CheckNext()
+    {
+      CheckEntry(nextIndex++);
     }
 
     private void SplitData()
@@ -37,6 +77,7 @@ namespace AdventOfCode.DayFour
       nextIndex = 0;
     }
 
+    [ContextMenu("CheckAll")]
     private void CheckAllPassports()
     {
       for (int i = 0; i < splitUnparsedData.Length; i++)
@@ -50,6 +91,11 @@ namespace AdventOfCode.DayFour
     {
       Passport passport = GeneratePassport(splitUnparsedData[i]);
       CheckPassport(passport);
+      if (Visualiser != null)
+      {
+        Visualiser.UpdateContent(passport, splitUnparsedData[i]);
+      }
+      
     }
 
     private Passport GeneratePassport(string data)

@@ -39,6 +39,11 @@ namespace AdventOfCode.DayFour
       SecondRange = copy.SecondRange;
     }
 
+    public string GetContent()
+    {
+      return content;
+    }
+
     public bool IsValid()
     {
       switch(Requirement)
