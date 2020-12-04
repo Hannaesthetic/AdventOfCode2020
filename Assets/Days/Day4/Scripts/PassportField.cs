@@ -6,6 +6,15 @@ namespace AdventOfCode.DayFour
   [System.Serializable]
   public class PassportField
   {
+    /*
+     * Regexes so that they appear in the code, not just a serialized scene thing
+     * Hair color: \A#[0-9a-f]{6}\Z
+     * Eye Color: \A(amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth)\Z
+     * Passport ID: \A[0-9]{9}\Z
+     * 
+     * Everything else is a Range, a None, or a Height requirement
+     */
+
     public string Name;
     public string FieldID;
     public RequirementType Requirement;
