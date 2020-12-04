@@ -236,28 +236,52 @@ MonoBehaviour:
   Fields:
   - Name: Birth Year
     FieldID: byr
-    Required: 1
+    Requirement: 2
+    RegexPattern: 
+    Range: {x: 1920, y: 2002}
+    SecondRange: {x: 0, y: 0}
   - Name: Issue Year
     FieldID: iyr
-    Required: 1
+    Requirement: 2
+    RegexPattern: 
+    Range: {x: 2010, y: 2020}
+    SecondRange: {x: 0, y: 0}
   - Name: Expiration Year
     FieldID: eyr
-    Required: 1
+    Requirement: 2
+    RegexPattern: 
+    Range: {x: 2020, y: 2030}
+    SecondRange: {x: 0, y: 0}
   - Name: Height
     FieldID: hgt
-    Required: 1
+    Requirement: 3
+    RegexPattern: 
+    Range: {x: 150, y: 193}
+    SecondRange: {x: 59, y: 76}
   - Name: Hair Color
     FieldID: hcl
-    Required: 1
+    Requirement: 1
+    RegexPattern: \A#[0-9a-f]{6}\Z
+    Range: {x: 0, y: 0}
+    SecondRange: {x: 0, y: 0}
   - Name: Eye Color
     FieldID: ecl
-    Required: 1
+    Requirement: 1
+    RegexPattern: \A(amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth)\Z
+    Range: {x: 0, y: 0}
+    SecondRange: {x: 0, y: 0}
   - Name: Passport ID
     FieldID: pid
-    Required: 1
+    Requirement: 1
+    RegexPattern: \A[0-9]{9}\Z
+    Range: {x: 0, y: 0}
+    SecondRange: {x: 0, y: 0}
   - Name: Country ID
     FieldID: cid
-    Required: 0
+    Requirement: 0
+    RegexPattern: 
+    Range: {x: 0, y: 0}
+    SecondRange: {x: 0, y: 0}
   UnparsedData: 'eyr:2024 pid:662406624 hcl:#cfa07d byr:1947 iyr:2015 ecl:amb hgt:150cm
 
     
