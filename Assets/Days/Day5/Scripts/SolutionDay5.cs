@@ -14,13 +14,33 @@ namespace AdventOfCode.DayFive
     public const int ROW_COUNT = 7;
     public const int COLUMN_COUNT = 3;
 
-    public string input;
+    [TextArea(3, 10)] public string UnparsedData;
 
-    [ContextMenu("Find Seat")]
-    private void CheckInput()
+    private Vector2Int[] seats;
+    private int[] IDs;
+
+    [ContextMenu("Find Highest")]
+    private void FindBiggestID()
     {
-      Vector2Int seatPosition = FindSeat(input);
-      Debug.Log($"Row: {seatPosition.x}, column: {seatPosition.y}, ID: {seatPosition.x * Mathf.Pow(2f, COLUMN_COUNT) + seatPosition.y}");
+      string[] splitData = ParseAll(UnparsedData);
+      seats = new Vector2Int[splitData.Length];
+      IDs = new int[splitData.Length];
+
+      int highestID = -1;
+
+      for (int i = 0; i < seats.Length; i++)
+      {
+        seats[i] = FindSeat(splitData[i]);
+        IDs[i] = GetID(seats[i]);
+        highestID = Mathf.Max(highestID, IDs[i]);
+      }
+
+      Debug.Log("Highest ID: " + highestID);
+    }
+
+    private string[] ParseAll(string data)
+    {
+      return data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
     }
 
     private Vector2Int FindSeat(string input)
@@ -35,6 +55,11 @@ namespace AdventOfCode.DayFive
       int column = Convert.ToInt32(columns, 2);
 
       return new Vector2Int(row, column);
+    }
+
+    private int GetID(Vector2Int seat)
+    {
+      return seat.x * (int)Mathf.Pow(2, COLUMN_COUNT) + seat.y;
     }
   }
 }
