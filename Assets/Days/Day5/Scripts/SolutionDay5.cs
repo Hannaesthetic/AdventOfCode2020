@@ -16,26 +16,53 @@ namespace AdventOfCode.DayFive
 
     [TextArea(3, 10)] public string UnparsedData;
 
-    private Vector2Int[] seats;
     private int[] IDs;
 
     [ContextMenu("Find Highest")]
     private void FindBiggestID()
     {
+      int[] seats = GetOrderedSeatIDs();
+      Debug.Log($"Highest SeatID: " + seats[seats.Length - 1]);
+    }
+
+    [ContextMenu("Find Seat")]
+    private void FindSeat()
+    {
+      int firstValid = GetID(new Vector2Int(0, (int)Mathf.Pow(2, COLUMN_COUNT)));
+      int lastValid = GetID(new Vector2Int((int)Mathf.Pow(2, ROW_COUNT), 0));
+      int[] seats = GetOrderedSeatIDs();
+      for(int i = 0; i < seats.Length - 1; i++)
+      {
+        if (seats[i] < firstValid)
+        {
+          continue;
+        } else if (seats[i] > lastValid)
+        {
+          Debug.Log("Seat not found");
+          return;
+        }
+        if (seats[i + 1] - seats[i] == 2)
+        {
+          Debug.Log("Seat found: " + (seats[i] + 1));
+          return;
+        }
+      }
+    }
+
+    private int[] GetOrderedSeatIDs()
+    {
       string[] splitData = ParseAll(UnparsedData);
-      seats = new Vector2Int[splitData.Length];
       IDs = new int[splitData.Length];
 
       int highestID = -1;
 
-      for (int i = 0; i < seats.Length; i++)
+      for (int i = 0; i < IDs.Length; i++)
       {
-        seats[i] = FindSeat(splitData[i]);
-        IDs[i] = GetID(seats[i]);
-        highestID = Mathf.Max(highestID, IDs[i]);
+        IDs[i] = GetID(FindSeat(splitData[i]));
       }
 
-      Debug.Log("Highest ID: " + highestID);
+      Array.Sort(IDs);
+      return IDs;
     }
 
     private string[] ParseAll(string data)
